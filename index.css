@@ -1,0 +1,542 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.inner {
+    max-width: 1600px;
+    width: calc(100% - 40px);
+    /* 40px만큼의 여백을 남기겠다  */
+    margin: 240px auto;
+}
+
+.section .title {
+    margin-bottom: 60px;
+}
+
+.section .title h3 {
+    font-size: 60px;
+}
+
+button {
+    background-color: aliceblue;
+    border: 0;
+}
+
+/*  위에 공통적인 작업 먼저 한건가? */
+
+
+.header {
+    height: 100px;
+    position: relative;
+    /* 가려졌던 로고가 앞으로나오네 원래는 z-in 써야 하는데 신기! */
+    z-index: 999;/* 헤더가 계속 밑으로 따라 올때 다른 아이템이랑 안겹쳐지게 만드네 */
+}
+
+.header.active {
+    /* 헤더한테 active가 붙었을때 + 스크롤 했을때 보이게 될 모습 */
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    /* 고정하겠다 */
+    left: 0;
+    top: 0;
+    background-color: aliceblue;
+    backdrop-filter: blur(7px);
+    /* 블러 효과 주는건가? */
+}
+
+
+.header .inner {
+    /* 상단 메뉴 영역의 부모 */
+    height: 100%;
+    /* 부모영역만큼 상속받도록 */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: ; 여기다가 사용 ㄴ */
+}
+
+.header .inner .logo {
+    height: 130px;
+}
+
+.header.active .logo {
+    /*header에 active가 붙었을때 스크롤 했을때 logo의 모습 변경   */
+    height: 80px;
+}
+
+.header .inner .logo a {
+    height: 100%;
+    display: block;
+    /* 인라인 요소라 블럭을 줬다?  */
+}
+
+.header .inner .logo a img {
+    height: 100%;
+}
+
+.header .inner .nav .gnb {
+    display: flex;
+    gap: 60px;
+    font-size: 20px;
+    height: 100%;
+    align-items: center;
+    /* align-items가 안먹히면 화이트값 100%으로 상속해주기   */
+}
+
+.header .inner .util {
+    /* 아이콘 ? 부모영역 */
+    height: 100%;
+    align-items: center;
+    /* align-items가 안먹히면 화이트값 100%으로 상속해주기 */
+    display: flex;
+    gap: 24px;
+
+}
+
+.header .inner .util .search__btn-close {
+    display: none;
+    /* 하나 없애기 / 닫기 버튼인듯 */
+}
+
+.header .inner .util .search__box {
+    /*  검색박스영역*/
+    width: 100%;
+    /* 넓이 값을 전체적으로 깔아 준다 */
+    position: absolute;
+    top: 100px;
+    /* 헤더가 가지고 있는 높이값만큼 내려줘야함 중요............*/
+    left: 0;
+    background-color: #004098;
+    /* 이까지 적으면 검색박스가 좌측상단에 붙음 */
+    color: aliceblue;
+    padding: 60px 0;
+    /* 위아래 값을 준다는 의미 */
+
+    display: none;
+    /* 스타일 다 꾸미고 마지막에 none해서 가려주기 ✔*/
+}
+
+.header .inner .util .search__box .search__box__inner {
+    /* 박스안에 있는 글자~검색 박스 등등 */
+    max-width: 960px;
+    width: calc(100 - 40px);
+    margin: 0 auto;
+}
+
+.header .inner .util .search__box__inner input {
+    /* 흠???? */
+    width: 100%;
+    height: 60px;
+    border: 0;
+    border-radius: 50px;
+    padding: 0 20px;
+    /* 좌우 */
+}
+
+.header .inner .util input::placeholder {
+    font-size: 18px;
+}
+
+.header .inner .util .popular ul {
+    /* 인기 검색어 영역 */
+    display: flex;
+    gap: 12px;
+}
+
+.header .inner .util .popular ul li::before {
+    /* 가상선택자 지정해서 변경도 가능하네 */
+    content: '#';
+    /* 인기검색어 글자 앞에 # 표시가 생기네? */
+}
+
+
+/* 메인 비주얼 영역 */
+.main_visual {
+    height: 790px;
+    /* 메인 영역한테 화이트값을 줬다면 아래 자식에게 화이트값 100%으로 상속해주기 */
+}
+
+.main_visual .slide_wrap {
+    height: 100%;
+}
+
+.main_visual .slide_wrap .slide {
+    height: 100%;
+    display: none;
+    /*일반 slide 영역들은 가려주고  */
+}
+
+.main_visual .slide_wrap .slide.active {
+    display: block;
+    /* slide에 active 가지고 있는 아이는 보이게 처리한다 */
+}
+
+.main_visual .slide_wrap .slide img {
+    width: 100%;
+    /* width 값은 상속이 되지만 height값은 상속이 안되서 위에 부모들한테 다줬던거임 */
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /*slide_btn 영역잡은거에서 살짝 벗어나는 영역을  display: block;
+    사용하니깐 미세하게 조절이되면서 맞춰지네?  */
+}
+
+.main_visual .slide_wrap .slide .text {
+    max-width: 1328px;
+    width: calc(100% - 40px);
+    background-color: #dbdbdb;
+    box-shadow: 8px 8px 20px #000000(0, 0, 0, 0.2);
+    margin: 0 auto;
+    /* margin-top: -45px; */
+    /*↓↓ 네모 박스 이미지 위에 올리는 법 ↓↓ */
+    position: relative;
+    top: -45px;
+
+    padding: 0 50px;
+    /* 좌우 값 */
+    border-radius: 4px;
+    line-height: 90px;
+    font-size: 22px;
+}
+
+.main_visual .slide_btn {
+    /* 버튼 영역 */
+    /* 부모가 가지고 있는 크기값 똑같이 잡아주기 */
+    max-width: 1328px;
+    width: calc(100% - 40px);
+    height: 90px;
+    margin: 0 auto;
+    position: relative;
+    top: -45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /*display: flex; + +align-items: center; + justify-content: flex-end
+    사용하니깐 오른쪽 끝으로 배치되네 */
+    gap: 8px;
+    padding-right: 50px;
+    /* 왼쪽에만 패딩값이 들어가네 */
+}
+
+/* 미리 크리스마스 영역 */
+
+.season_event {
+    text-align: center;
+}
+
+.season_event h3 {
+    font-size: 60px;
+}
+
+.season_event .item_wrap {
+    display: flex;
+    justify-content: space-between;
+    display: none;
+}
+
+.season_event .item_wrap.active {
+    display: flex;
+}
+
+.season_event .item_wrap .item {
+    width: 24%;
+    position: relative;
+    overflow: hidden;
+    /* 이미지 확대되게하는 방법 3 벗어나는 영역을 잡아주신하네 */
+    border-radius: 10px;
+    /* 마우스 올렸을 때 확대 할려고 방법 1 위치잘잡기 */
+}
+
+.season_event .item_wrap .item .image {
+    height: 470px;
+}
+
+.season_event .item_wrap .item .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.season_event .item_wrap .item .text {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: aliceblue;
+    background-color: #3535359a;
+    padding: 35px;
+}
+
+.season_event .item_wrap .item:hover img {
+    transform: scale(1.5);
+    /* 이미지 확대되게하는 방법 2 /영역을 벗어나네 대신 오버플루히든  */
+}
+
+.season_event .more_btn {
+    width: 394px;
+    height: 70px;
+    border: 1px solid #333;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto 0;
+    /* 위쪽 > 좌우 > 아래쪽 값준거임 */
+}
+
+
+/* 지금 부산에 가면 영역 */
+
+.busan_now {
+    position: relative;
+}
+
+.busan_now .title::before {
+    content: '';
+    width: 810px;
+    height: 740px;
+    background-color: #f3f3f3;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.busan_now .title .title__in {
+    max-width: 1600px;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.busan_now .title .title__in h3 {
+    font-size: 60px;
+}
+
+.busan_now .slides {
+    max-width: 1324px;
+    /* 아이템 박스가 3개 들어있는 만큼 */
+    width: calc(100% - 40px);
+    margin-left: auto;
+    /* 오른쪽에 정렬을 원한다면...?
+    간간히 사용된다심 */
+    margin-right: 28px;
+    /* 살짝 띄어주기위함 */
+    /*     position: relative;
+    z-index: 9;/* 네모 박스 이미지 뒤로 보내기 
+    다른 태그안에relative가 들어가서 지워도 유지가 되고 있음*/
+    padding-top: 130px;
+    /* 위에 top 값 만큼 하는 건가? */
+
+}
+
+.busan_now .slides .slide_wrap {
+    display: flex;
+    justify-content: space-between;
+    display: none;
+    /* 잠깐 가려주는거 */
+    /* justify-content: flex-end;  이게 안먹으면 위에꺼 대로 사용해보기*/
+}
+
+.busan_now .slides .slide_wrap.active {
+    display: flex;
+    /* 보이게 하는거 */
+}
+
+.busan_now .slides .slide_wrap .item_slide {
+    width: 31%;
+    /* ?? */
+    height: 480px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.busan_now .slides .slide_wrap .item_slide a {
+    height: 100%;
+    display: block;
+}
+
+.busan_now .slides .slide_wrap .item_slide img {
+    width: 100%;
+    height: 100%;
+
+}
+
+.busan_now .slides .slide_wrap .item_slide h4 {
+    position: absolute;
+    left: 35px;
+    /* 옆으로 띄어주네  */
+    bottom: 35px;
+    /* 밑으로 띄어주네 */
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.busan_now .slides .slide_btn {
+    /* 버튼 위치 옮기는 영역 */
+
+    max-width: 1600px;
+    width: calc(100% - 40px);
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    transform: translate(-50%);
+
+}
+
+
+/* 테마에 대한 영역 */
+
+.theme .section_menu {
+    /* 메뉴  정렬하는 영역  */
+    display: flex;
+    gap: 28px;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.theme .section_menu li {
+    color: #888;
+    cursor: pointer;
+    /* li이가a태그에 안감싸져서 텍스트에 마우스를 올려도 손가락
+    모양이 안나왔는데 cursor: pointer; 사용하니깐 손가락 모양이 나오네 */
+}
+
+.theme .section_menu li::before {
+    content: '#'; /* 가상 선택자 이용해서 글자앞에 # 넣기 */
+}
+
+
+.theme .section_menu li.on {
+    color: #E4007F;
+}
+
+.theme .item_wrap { /* 이미지 박스의 부모 */
+    display: flex;
+    justify-content: space-between;
+    display: none;/* 잠깐 아이템 박스 가리시 */
+}
+
+.theme .item_wrap.on {
+    display: flex;/* 일정 태그가 있는 아이템 박스는 보이게 만들기 */
+}
+
+
+.theme .item_wrap .item {
+    width: 24%;
+}
+
+.theme .item_wrap .item .image {
+    height: 370px;
+    overflow: hidden;/* 이게 있어야지만  border-radius가 적용된다네*/
+}
+
+.theme .item_wrap .item .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.theme .item_wrap .item:first-child .image {
+    /* 첫번째 이미지에게  */
+    /* 나머지 도형 값은 나중에 따로 해보라심 */
+    border-radius: 200px 200px 10px 10px;
+}
+
+/* 축제 • 행사 영역 */
+
+.festival {
+    background-color: #004098;
+    text-align: center;
+}
+
+.festival .inner {
+    padding: 240px 0;
+}
+.festival .inner h3 {
+    color: #dbdbdb;
+    font-size: 60px;
+}
+
+.festival .inner .item_wrap { /* 아이템 박스 정렬 영역 */
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.festival .inner .item_wrap .item  a {
+    background-color: #dbdbdb;
+    padding: 32px;/* 상하 높이 */ /* 상하 좌우로 여백이 생겼다  */
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;/* border-radius: 10px; 잡아 준거 때문에 영역 벗어나지말라고 잡아주네 */
+    transition: 0.7s;/* 3. 부드럽게 돌아가게 하는 것  */
+    display: block;
+}
+
+.festival .inner .item_wrap .item img { /* 아이템 박스 안에 이미지 영역  */
+    border-radius: 8px; /*  이미지 모서리가 둥그러졌다 ! */
+    width: 100%;
+    height: 362px;
+    object-fit: cover;
+}
+
+.festival .inner .item_wrap .item .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #E4007F;
+    color: #dbdbdb;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0; /* 숨김처리  / 마우스 올렸을 때 보일려고 할려고  */
+}
+
+.festival .inner .item_wrap .item:hover a { /* 누구한테 효과를 주냐에 따라 더욱 안정적으로 회전을 시킬 수 있다 */
+    transform: rotateY(180deg); 
+    /* 1. item한테 마우스를 올렸을 때 transform: rotateY(180deg); 
+    y축 기준으로 180도 돌리겠다  근데 이거만 적으니깐 안되네 */
+   
+}
+
+.festival .inner .item_wrap .item:hover .back {
+    opacity: 1; /* 2. 방법*/
+    transform: rotateY(180deg); /* 4. 글자가 뒤집히는 걸 잡아주네 */
+}
+
+
+ 
+ 
+
+
+
+
+
+
+

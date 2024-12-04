@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부산을 방문하다</title>
+    <link rel="stylesheet" href="css/부산연습.css">
+    <script>
+        window.onload = () => {
+
+            //header에 대한 변수명 지정
+            let header = document.querySelector('.header');
+
+            //header 안에 있는 클래스명 변수 지정 
+            let searchOpen = header.querySelector('.search__btn-open');
+            let searchClose = header.querySelector('.search__btn-close');
+            let searchBox = header.querySelector('.search_box');
+
+            // 스크롤 했을때 변하는 헤더의 모습에 대한 작성 ↓
+
+            window.addEventListener('scroll', () => {
+                let scrollBar = window.scrollY;
+                if (scrollBar > 0) {
+                    header.classList.add('active');
+                } else {
+                    header.classList.remove('active');
+                }
+            }); //scroll end
+
+
+            // ↓↓ 헤더에 대한 검색박스 실행 ↓↓
+            searchOpen.addEventListener('click', () => {
+                searchBox.style.display = 'block';
+                searchOpen.style.display = 'none';
+                searchClose.style.display = 'block';
+            });/* click end */
+            searchClose.addEventListener('click', () => {
+                searchBox.style.display = 'none';
+                searchOpen.style.display = 'block';
+                searchClose.style.display = 'none';
+            });
+
+            //메인 비주얼에 대한 작성
+
+            let mainVisual = document.querySelector('.main_visual'); //메인 영역
+            let visualSlide = mainVisual.querySelectorAll('.slide'); //모든 슬라이드 영역
+            let visualPrev = mainVisual.querySelector('.prev');//이전 버튼
+            let visualNext = mainVisual.querySelector('.next');//다음버튼
+
+            let i = 0;  //초기값 설정
+
+            visualNext.addEventListener('click', () => {
+                i++;
+                console.log(i);
+                if (i >= visualSlide.length) {
+                    i = 0;
+                }
+
+                visualSlide.forEach(item => {
+                    item.classList.remove('active');
+                });
+                visualSlide[i].classList.add('active');
+
+            });/* click  */
+
+            visualPrev.addEventListener('click', () => {
+                i--;
+
+                if (i < 0) {
+                    i = visualSlide.length - 1;
+                }
+
+                visualSlide.forEach(item => {
+                    item.classList.remove('active');
+                });
+                visualSlide[i].classList.add('active');
+
+            });
+
+            setInterval(() => {
+                i++;
+                console.log(i);
+                if (i >= visualSlide.length) {
+                    i = 0;
+                }
+                visualSlide.forEach(item => {
+                    item.classList.remove('active');
+                });
+                visualSlide[i].classList.add('active');
+            }, 2000);
+
+
+
+            //미리 크리스마스 영역
+
+            let seasonEvent = document.querySelector('.season_event');
+            let seasonItemWrap = seasonEvent.querySelectorAll('.item_wrap');
+            let seasoBtn = seasonEvent.querySelector('.more_btn');
+            let seasoPaqe = seasonEvent.querySelector('.page_num');
+
+            //버튼을 클릭했을때 변경되게
+
+            seasoBtn.addEventListener('click', () => {
+                i++;
+                console.log(i);
+                if (i >= seasonItemWrap.length) {
+                    i = 0;
+                }
+
+                //seasonItemWrap 클래스명 제거 active
+                seasonItemWrap.forEach(seasonItem => {
+                    seasonItem.classList.remove('active');
+                });
+                seasonItemWrap[i].classList.add('active');
+
+                //숫자변경
+                seasoPaqe.innerHTML = i + 1;
+            });/* seasonBtn  click */
+
+            //지금 부산에 가면 좌우버튼 영역
+
+            let busanNow = document.querySelector('.busan_now');
+            let nowSlideWrap = busanNow.querySelectorAll('.slide_wrap');
+            let nowPrev = busanNow.querySelector('.prev');
+            let nowNext = busanNow.querySelector('.next');
+
+            nowNext.addEventListener('click', () => {
+                i++;
+                if (i >= nowSlideWrap.length) {
+                    i = 0;
+                }
+                nowSlideWrap.forEach(item => {
+                    item.classList.remove('active');
+                });
+                nowSlideWrap[i].classList.add('active')
+            }); //nowNext click 
+
+            nowPrev.addEventListener('click', () => {
+                i--;
+
+                if (i < 0) {
+                    i = nowSlideWrap.length - 1;
+                }
+                nowSlideWrap.forEach(item => {
+                    item.classList.remove('active');
+                });
+                nowSlideWrap[i].classList.add('active');
+
+            }); //nowPrev click 
+
+
+
+
+
+
+
+
+        };/* script end */
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="header">
+            <div class="inner">
+                <h1 class="logo">
+                    <a href="#">
+                        <img src="img/logo.jpg" alt="부산을 방문하다">
+                    </a>
+                </h1><!--logo end-->
+
+                <nav class="nav">
+                    <ul class="gnd">
+                        <li><a href="#">부산에가면</a></li>
+                        <li><a href="#">추천여행</a></li>
+                        <li><a href="#">여행준비</a></li>
+                        <li><a href="#">유용한정보</a></li>
+                    </ul><!--gnb end  -->
+                </nav><!--nav end  -->
+
+                <ul class="util">
+                    <li class="search">
+                        <button class="search_btn">
+                            <img class="search__btn-open" src="img/icon-search.png" alt="검색">
+                            <img class="search__btn-close" src="img/icon-search.png" alt="검색닫기">
+                        </button><!--search_btn end  -->
+
+                        <div class="search_box">
+                            <div class="search_box_inner">
+                                <input type="text" placeholder="검색어를 입력해주세요.">
+                                <div class="popular">
+                                    <strong>인기검색어</strong>
+                                    <ul>
+                                        <li>부산가볼만한곳</li>
+                                        <li>동구</li>
+                                        <li>광안리</li>
+                                    </ul>
+                                </div><!--popular end  -->
+                            </div><!-- search_box_inner end -->
+                        </div><!--search_box end  -->
+                    </li><!--search end  -->
+                    <li>
+                        <a href="#" title="마이페이지 이동">
+                            <img src="img/icon-user.png" alt="마이페이지">
+                        </a>
+                    </li>
+                </ul><!--util end  -->
+            </div><!--inner end  -->
+        </header><!--header end  -->
+
+        <main id="main">
+            <section class="main_visual">
+                <div class="slid_wrap">
+                    <div class="slide active">
+                        <img src="img/visual-01.jpg" alt="서면의 밤, 빛으로 물든 향연 속으로! ‘서면 빛 축제’">
+                        <div class="text">
+                            <p>서면의 밤, 빛으로 물든 항연 속으로! ‘서면 빛 축제’</p>
+                        </div><!--text end  -->
+                    </div><!--slide end  -->
+
+                    <div class="slide">
+                        <img src="img/visual-02.jpg" alt="서면의 밤, 빛으로 물든 향연 속으로! ‘서면 빛 축제’">
+                        <div class="text">
+                            <p>2024 비짓부산 관광사진 콘테스트</p>
+                        </div><!--text end  -->
+                    </div><!--slide end  -->
+
+                    <div class="slide">
+                        <img src="img/visual-03.jpg" alt="서면의 밤, 빛으로 물든 향연 속으로! ‘서면 빛 축제’">
+                        <div class="text">
+                            <p>AI 여행 추천 서비스 나를 위한 AI 여행 일정 추천</p>
+                        </div><!--text end  -->
+                    </div><!--slide end  -->
+                </div><!--slid_wrap end  -->
+                <div class="slide_btn">
+                    <button class="prev"><img src="img/icon-arrow-left.png" alt="슬라이드 이전 버튼"></button>
+                    <button class="next"><img src="img/icon-arrow-right.png" alt="슬라이드 다음 버튼"></button>
+                </div><!--slide_btn end  -->
+            </section><!-- main_visual end -->
+
+            <section class="season_event">
+                <div class="inner">
+                    <div class="title">
+                        <h3>미리 크리스마스
+                            <img src="img/title-emoji.png" alt="크리스마스">
+                        </h3>
+                    </div><!--title end  -->
+
+                    <div class="item_wrap active">
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+                    </div><!--item_wrap end  -->
+
+                    <div class="item_wrap">
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+
+                        <div class="item">
+                            <a href="#">
+                                <div class="image">
+                                    <img src="img/image-12.jpg" alt="">
+                                </div><!-- image end -->
+                                <div class="text">
+                                    <span>부산 수영구</span>
+                                    <h4>[카페]듀플릿 광안점</h4>
+                                </div><!--text end  -->
+                            </a>
+                        </div><!--item end  -->
+                    </div><!--item_wrap end  -->
+
+                    <div class="more_btn">
+                        <img src="img/icon-more.png" alt="더보기 버튼">
+                        <div class="more_btn--text">
+                            <strong>미리 크리스마스</strong>
+                            <span>더보기</span>
+                        </div><!--more_btn--text end  -->
+
+                        <div class="btn_page">
+                            <strong class="page_num">1</strong>
+                            / <span class="page_all">2</span>
+                        </div><!--btn_page end  -->
+                    </div><!--more_btn end  -->
+
+                </div><!--inner  -->
+            </section><!-- season_event end -->
+
+            <section class="busan_now">
+                <div class="title">
+                    <div class="title__in">
+                        <h3>지금 <br>부산에 가면</h3>
+                        <p>지금 떠나기 좋은 여행지 어디?</p>
+                    </div><!--title__in end  -->
+                </div><!-- title end -->
+
+                <div class="slides">
+                    <div class="slide_wrap active">
+                        <div class="item_slide">
+                            <a href="#">
+                                <img src="img/image-9.jpg" alt="">
+                                <h4>‘단풍과 캠핑의 계절’,<br />
+                                    부산 가을 이모저모</h4>
+                            </a>
+                        </div><!-- item_slide end -->
+
+                        <div class="item_slide">
+                            <a href="#">
+                                <img src="img/image-11.jpg" alt="">
+                                <h4>가을 하늘 아래,<br />
+                                    철새와 함께하는 생태여행</h4>
+                            </a>
+                        </div><!-- item_slide end -->
+
+                        <div class="item_slide">
+                            <a href="#">
+                                <img src="img/image-10.jpg" alt="">
+                                <h4>바다의 낭만을 한 잔에, 다대포<br />
+                                    '할매집'의 수제 막걸리와 해산물</h4>
+                            </a>
+                        </div><!-- item_slide end -->
+
+
+
+
+                    </div><!--slide_wrap end  -->
+                    <div class="slide_wrap">
+                        <div class="item_slide">
+                            <a href="#">
+                                <img src="img/image-9.jpg" alt="">
+                                <h4>‘단풍과 캠핑의 계절’,<br />
+                                    부산 가을 이모저모</h4>
+                            </a>
+                        </div><!-- item_slide end -->
+
+                        <div class="item_slide">
+                            <a href="#">
+                                <img src="img/image-11.jpg" alt="">
+                                <h4>가을 하늘 아래,<br />
+                                    철새와 함께하는 생태여행</h4>
+                            </a>
+                        </div><!-- item_slide end -->
+
+                        <div class="item_slide">
+                            <a href="#">
+                                <img src="img/image-10.jpg" alt="">
+                                <h4>바다의 낭만을 한 잔에, 다대포<br />
+                                    '할매집'의 수제 막걸리와 해산물</h4>
+                            </a>
+                        </div><!-- item_slide end -->
+
+
+
+
+                    </div><!--slide_wrap end  -->
+
+                    <div class="slide_btn">
+                        <button class="prev"><img src="img/icon-circle-arrow--left.png" alt="이전버튼"></button>
+                        <button class="next"><img src="img/icon-circle-arrow-right.png" alt="다음버튼"></button>
+                    </div><!-- slide_btn end -->
+
+                </div><!--slides end  -->
+            </section><!--busan_now end  -->
+
+
+
+
+
+
+
+
+        </main><!--main end  -->
+
+
+
+
+
+    </div><!--wrap end  -->
+</body>
+
+</html>
